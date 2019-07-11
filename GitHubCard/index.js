@@ -2,7 +2,7 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-const followersArray = ["yakuana", "JasonYoo1", "taniamichelle", "tetondan", "dustinmyers"];
+const followersArray = ["yakuana", "JasonYoo1", "taniamichelle", "rebeccajoyner", "AnniqueN"];
 axios.get('https://api.github.com/users/Ryan-Wisniewski')
   .then(data => {
     // console.log(data.data)
@@ -67,7 +67,7 @@ followersArray.forEach(name => {
 
 */
 function createHandle(idTag){
-  console.log('here i am', idTag)
+  // console.log('here i am', idTag)
 const cardDiv = document.createElement('div')
 const cardInfoDiv = document.createElement('div')
 const img = document.createElement('img')
@@ -83,14 +83,21 @@ const bio = document.createElement('p')
 img.src = idTag.avatar_url
 name.textContent = idTag.name
 userName.textContent = idTag.login
-location.textContent = `Location: ${idTag.location}`
+// location.textContent = `Location: ${idTag.location}`
 profile.textContent = 'Profile: '
 profileLink.textContent =  idTag.html_url
 profileLink.href =  idTag.html_url
-console.log(idTag.html_url)
-console.log('this', profileLink)
-followers.textContent = idTag.followers
-following.textContent = idTag.following
+// console.log(idTag.html_url)
+// console.log('this', profileLink)
+followers.textContent = `Followers: ${idTag.followers}`
+following.textContent = `Following: ${idTag.following}`
+
+if (idTag.location == null){
+  location.textContent = 'N/A'
+}else{
+  location.textContent = `Location: ${idTag.location}`
+}
+console.log('here', idTag.location, location)
 
 cardDiv.appendChild(img)
 cardDiv.appendChild(cardInfoDiv)
@@ -109,9 +116,9 @@ name.classList.add('name')
 userName.classList.add('username')
 
 
-
 return cardDiv
 }
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
