@@ -2,7 +2,28 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const followersArray = ["yakuana", "JasonYoo1", "taniamichelle", "tetondan", "dustinmyers"];
+axios.get('https://api.github.com/users/Ryan-Wisniewski')
+  .then(data => {
+    // console.log(data.data)
+    const cards = document.querySelector('.cards')
+    cards.appendChild(createHandle(data.data))
+  })
+  .catch(error => {
+    console.log('Server API down', error)
+  })
 
+followersArray.forEach(name => {
+  axios.get(`https://api.github.com/users/${name}`)
+  .then(data => {
+    // console.log(data.data)
+    const cards = document.querySelector('.cards')
+    cards.appendChild(createHandle(data.data))
+  })
+  .catch(error => {
+    console.log('Server API down', error)
+  })
+})
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -24,7 +45,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -45,7 +66,52 @@ const followersArray = [];
 </div>
 
 */
+function createHandle(idTag){
+  console.log('here i am', idTag)
+const cardDiv = document.createElement('div')
+const cardInfoDiv = document.createElement('div')
+const img = document.createElement('img')
+const name = document.createElement('h3')
+const userName = document.createElement('p')
+const location = document.createElement('p')
+const profile = document.createElement('p')
+const profileLink = document.createElement('a')
+const followers = document.createElement('p')
+const following = document.createElement('p')
+const bio = document.createElement('p')
 
+img.src = idTag.avatar_url
+name.textContent = idTag.name
+userName.textContent = idTag.login
+location.textContent = `Location: ${idTag.location}`
+profile.textContent = 'Profile: '
+profileLink.textContent =  idTag.html_url
+profileLink.href =  idTag.html_url
+console.log(idTag.html_url)
+console.log('this', profileLink)
+followers.textContent = idTag.followers
+following.textContent = idTag.following
+
+cardDiv.appendChild(img)
+cardDiv.appendChild(cardInfoDiv)
+cardInfoDiv.appendChild(name)
+cardInfoDiv.appendChild(userName)
+cardInfoDiv.appendChild(location)
+cardInfoDiv.appendChild(profile)
+profile.appendChild(profileLink)
+cardInfoDiv.appendChild(followers)
+cardInfoDiv.appendChild(following)
+cardInfoDiv.appendChild(bio)
+
+cardDiv.classList.add('card')
+cardInfoDiv.classList.add('card-info')
+name.classList.add('name')
+userName.classList.add('username')
+
+
+
+return cardDiv
+}
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
